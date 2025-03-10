@@ -1,0 +1,207 @@
+% This must be in the first 5 lines to tell arXiv to use pdfLaTeX, which is strongly recommended.
+\pdfoutput=1
+% In particular, the hyperref package requires pdfLaTeX in order to break URLs across lines.
+
+\documentclass[11pt]{article}
+
+% Change "review" to "final" to generate the final (sometimes called camera-ready) version.
+% Change to "preprint" to generate a non-anonymous version with page numbers.
+\usepackage[preprint]{acl}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+
+% For proper rendering and hyphenation of words containing Latin characters (including in bib files)
+\usepackage[T1]{fontenc}
+% For Vietnamese characters
+% \usepackage[T5]{fontenc}
+% See https://www.latex-project.org/help/documentation/encguide.pdf for other character sets
+
+% This assumes your files are encoded as UTF8
+\usepackage[utf8]{inputenc}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+% This is also not strictly necessary, and may be commented out.
+% However, it will improve the aesthetics of text in
+% the typewriter font.
+\usepackage{inconsolata}
+
+%Including images in your LaTeX document requires adding
+%additional package(s)
+\usepackage{graphicx}
+
+% If the title and author information does not fit in the area allocated, uncomment the following
+%
+%\setlength\titlebox{<dim>}
+%
+% and set <dim> to something 5cm or larger.
+
+\title{Sentiment Analysis of Tamil Tweets with Machine Learning and Transformer Models}
+
+
+\usepackage{authblk} % To support multiple authors with affiliations
+
+
+\author{Malliga Subramanian, Aruna A, Anbarasan T, Amudhavan M, Jahaganapathi S, Kogilavani S V \\ Kongu Engineering College, Erode, Tamil Nadu, India}
+
+
+
+% Author information can be set in various styles:
+% For several authors from the same institution:
+% \author{Author 1 \and ... \and Author n \\
+%         Address line \\ ... \\ Address line}
+% if the names do not fit well on one line use
+%         Author 1 \\ {\bf Author 2} \\ ... \\ {\bf Author n} \\
+% For authors from different institutions:
+% \author{Author 1 \\ Address line \\  ... \\ Address line
+%         \And  ... \And
+%         Author n \\ Address line \\ ... \\ Address line}
+% To start a separate ``row'' of authors use \AND, as in
+% \author{Author 1 \\ Address line \\  ... \\ Address line
+%         \AND
+%         Author 2 \\ Address line \\ ... \\ Address line \And
+%         Author 3 \\ Address line \\ ... \\ Address line}
+
+% \author{First Author \\
+ % Affiliation / Address line 1 \\
+%  Affiliation / Address line 2 \\
+%  Affiliation / Address line 3 \\
+%  \texttt{email@domain} \\\And
+%  Second Author \\
+%  Affiliation / Address line 1 \\
+%  Affiliation / Address line 2 \\
+% Affiliation / Address line 3 \\
+% \texttt{email@domain} \\}
+
+%\author{
+%  \textbf{First Author\textsuperscript{1}},
+%  \textbf{Second Author\textsuperscript{1,2}},
+%  \textbf{Third T. Author\textsuperscript{1}},
+%  \textbf{Fourth Author\textsuperscript{1}},
+%\\
+%  \textbf{Fifth Author\textsuperscript{1,2}},
+%  \textbf{Sixth Author\textsuperscript{1}},
+%  \textbf{Seventh Author\textsuperscript{1}},
+%  \textbf{Eighth Author \textsuperscript{1,2,3,4}},
+%\\
+%  \textbf{Ninth Author\textsuperscript{1}},
+%  \textbf{Tenth Author\textsuperscript{1}},
+%  \textbf{Eleventh E. Author\textsuperscript{1,2,3,4,5}},
+%  \textbf{Twelfth Author\textsuperscript{1}},
+%\\
+%  \textbf{Thirteenth Author\textsuperscript{3}},
+%  \textbf{Fourteenth F. Author\textsuperscript{2,4}},
+%  \textbf{Fifteenth Author\textsuperscript{1}},
+%  \textbf{Sixteenth Author\textsuperscript{1}},
+%\\
+%  \textbf{Seventeenth S. Author\textsuperscript{4,5}},
+%  \textbf{Eighteenth Author\textsuperscript{3,4}},
+%  \textbf{Nineteenth N. Author\textsuperscript{2,5}},
+%  \textbf{Twentieth Author\textsuperscript{1}}
+%\\
+%\\
+%  \textsuperscript{1}Affiliation 1,
+%  \textsuperscript{2}Affiliation 2,
+%  \textsuperscript{3}Affiliation 3,
+%  \textsuperscript{4}Affiliation 4,
+%  \textsuperscript{5}Affiliation 5
+%\\
+%  \small{
+%    \textbf{Correspondence:} \href{mailto:email@domain}{email@domain}
+%  }
+%}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Sentiment analysis in code-mixed languages, particularly Tamil-English, is a growing challenge in natural language processing (NLP) due to the prevalence of multilingual communities on social media. This paper explores various machine learning and transformer-based models, including Logistic Regression, Support Vector Machines (SVM), K-Nearest Neighbors (KNN), BERT, and mBERT, for sentiment classification of Tamil-English code-mixed text. The models are evaluated on a shared task dataset provided by DravidianLangTech@NAACL 2025, with performance measured through accuracy, precision, recall, and F1-score. Our results demonstrate that transformer-based models, particularly mBERT, outperform traditional classifiers in identifying sentiment polarity. Future work aims to address the challenges posed by code-switching and class imbalance through advanced model architectures and data augmentation techniques. 
+
+\textbf{Keywords:} Sentiment Analysis, Dravidian Languages, Tamil-English, Code-Mixed Text, Machine Learning, Transformer Models, mBERT
+\end{abstract}
+
+
+\section{Introduction}
+
+Sentiment analysis is a key task in natural language processing (NLP) that involves determining the emotional tone or opinion expressed in text. The rise of social media has introduced new challenges in this area, particularly with code-mixed languages like Tamil-English, where users frequently switch between languages and scripts in informal communication. These multilingual and code-mixed texts, often rich in linguistic complexity and informal grammar, are difficult for traditional sentiment analysis models to process effectively, as such models are typically trained on monolingual datasets. Tamil-English code-mixed texts add further challenges, such as class imbalance and the presence of unique cultural and contextual nuances. This paper explores sentiment classification for Tamil-English code-mixed text using the dataset provided by the Shared Task on Sentiment Analysis in Tamil at DravidianLangTech@NAACL 2025. Various approaches, including traditional machine learning models like Logistic Regression and Support Vector Machines (SVM) and transformer-based models such as BERT and mBERT, are employed to classify sentiments into positive, negative, neutral, or mixed categories. The study highlights the limitations of conventional models and demonstrates the superior performance of transformer-based approaches in handling the complexities of code-mixed text, providing a foundation for future research in low-resource and multilingual NLP tasks
+
+
+\section{Literature Survey}
+
+Sentiment analysis is a vital area of natural language processing (NLP) with applications in opinion mining, emotion recognition, and decision-making processes. While significant progress has been made in sentiment analysis for high-resource languages like English, research in low-resource and code-mixed languages, such as Tamil-English, remains underexplored. Sentiment analysis in code-mixed text is particularly challenging due to the complexity of code-switching, informal grammar, and cultural nuances present in multilingual communities.
+
+There is an increasing demand for sentiment detection on social media texts that are largely code-mixed in Dravidian languages. Code-mixing is a prevalent phenomenon in multilingual communities, and code-mixed texts are sometimes written in non-native scripts. Systems trained on monolingual data often fail on code-mixed data due to the complexity of code-switching at different linguistic levels in the text. The Shared Task on Sentiment Analysis in Tamil-English at DravidianLangTech@NAACL 2025 provided a valuable benchmark dataset for this domain.
+
+The goal of this task was to identify the sentiment polarity of a code-mixed dataset of comments and posts in Tamil-English collected from social media. The comments and posts may contain more than one sentence, but the average sentence length of the corpus is 1. Each comment or post is annotated with sentiment polarity at the comment or post level. This dataset also exhibits class imbalance issues, reflecting real-world scenarios. The task encouraged research to explore how sentiment is expressed in code-mixed social media content.
+
+Existing studies have highlighted the limitations of traditional machine learning models in handling these complexities, paving the way for the adoption of transformer-based models like BERT, mBERT, and other multilingual architectures. Various methodologies, including pre-trained language models, ensemble learning, and data augmentation techniques, were explored to address challenges such as class imbalance and linguistic diversity. This survey underscores the contributions of these studies, offering insights to advance sentiment analysis in code-mixed languages and improve future research in this field.
+
+\subsection{Sentiment Analysis in English and Major Languages}
+Sentiment analysis in Tamil-English code-mixed text has gained increasing attention in recent years due to the growing presence of multilingual content on social media. Early approaches relied on lexicon-based and rule-based methods, leveraging sentiment dictionaries and manually defined linguistic rules \citep{Alaparthi2020} to classify sentiments. These methods were limited in handling informal and highly variable code-mixed text. The advent of machine learning algorithms, including Naïve Bayes, SVM, and Logistic Regression, introduced statistical models that improved sentiment classification by incorporating features like n-grams, POS tagging, and sentiment lexicons. However, these traditional methods often failed to capture the complexities of mixed-language expressions and the contextual dependencies of words. The introduction of deep learning models, particularly BiLSTMs and CNNs, enhanced the ability to learn complex patterns from code-mixed text automatically. More recently, transformer-based architectures such as BERT, XLNet, and RoBERTa have achieved state-of-the-art results in sentiment analysis for Tamil-English code-mixed data by effectively modeling contextual representations and improving classification performance.
+
+\subsection{Sentiment Analysis in Dravidian Languages}
+
+Sentiment analysis for Tamil-English code-mixed text presents unique challenges due to its informal nature, syntactic irregularities, and complex grammatical structures. Code-mixing, which involves the blending of Tamil and English within a single text or sentence, is a common phenomenon in social media communication. Traditional approaches, such as lexicon-based methods and classical machine learning algorithms like SVM and Naïve Bayes, have struggled to handle the linguistic variations, transliterations, and context shifts inherent in code-mixed data. Furthermore, the lack of large-scale annotated datasets for Tamil-English code-mixed sentiment analysis hinders model performance and generalizability.
+
+\subsection{Deep Learning and Transformer Models for Sentiment Analysis}
+
+Deep learning methods have significantly improved sentiment classification in code-mixed settings by capturing syntactic and semantic relationships more effectively. Recurrent models, such as BiLSTMs and GRUs, have demonstrated success in learning sequential dependencies in Tamil-English text. However, these models often struggle with long-range contextual dependencies, necessitating more advanced architectures. Transformer-based models like BERT, XLM-R, and mBERT have set new benchmarks in multilingual sentiment analysis by leveraging self-attention mechanisms. Fine-tuning these pre-trained models on Tamil-English datasets has led to improved performance in handling mixed-language sentiment expressions and nuanced emotions. Despite these advancements, transformer models require extensive labeled data and computational resources, which remain key limitations in this domain.
+
+\subsection{Challenges in Tamil Political Sentiment Analysis}
+
+The future of Tamil-English code-mixed sentiment analysis lies in the development of large, high-quality annotated datasets, which can enhance the training and evaluation of deep learning models. Additionally, hybrid approaches that combine rule-based preprocessing, traditional NLP techniques, and transformer models could further improve sentiment classification accuracy. Handling sarcasm, implicit sentiment, and cultural nuances in political and social discourse remains a major challenge. Future research should explore domain-adaptive pre-training techniques and the integration of external knowledge sources, such as sentiment lexicons and contextual embeddings, to advance the performance of Tamil-English code-mixed sentiment analysis systems.
+
+
+\section{ Materials and Methods}
+The dataset used in this study consists of Tamil-English code-mixed comments collected from social media platforms, primarily Twitter (X) and Facebook. These comments reflect diverse user opinions on various socio-political and cultural topics. The dataset presents challenges such as inconsistent transliteration, informal grammar, slang, and the presence of mixed-script text, where Tamil is written using the Roman script alongside English. The comments are classified into four sentiment categories: Positive, Negative, Mixed, and Unknown. Given the organic nature of online discourse, the dataset exhibits class imbalance, where certain sentiment categories (e.g., Negative or Unknown) appear more frequently. To address this, Synthetic Minority Over-sampling Technique (SMOTE) was applied during model training to balance the dataset and improve classification performance.
+
+
+\subsection{Preprocessing and Feature Extraction}
+Sentiment analysis of Tamil-English code-mixed data requires robust preprocessing to handle the noise and linguistic challenges inherent in such content. The first step involves text cleaning, where special characters, hashtags, URLs, emojis, and user mentions are removed to reduce noise. Given the bilingual nature of Tamil-English tweets, transliteration tools are used to standardize the text. Tokenization techniques like Byte Pair Encoding (BPE) help break the text into subword units, making it easier for transformer models to process. Stopwords in both Tamil and English are also eliminated to focus on meaningful terms that contribute to sentiment classification.
+
+For feature extraction, traditional machine learning models use TF-IDF and n-grams to capture word frequency and relationships between words, while deep learning models leverage pre-trained embeddings like fastText for Tamil and multilingual BERT (mBERT) to capture contextual meaning. These embeddings are crucial for understanding the nuances in sentiment, especially in code-mixed text, where word meanings can shift depending on context. Features such as political references (e.g., DMK, Modi) and sentiment-laden words (e.g., "fail," "support") help the model differentiate between positive, negative, and neutral sentiments.
+
+Despite the challenges posed by sarcasm and implicit sentiments, the feature extraction techniques improve classification accuracy. Political terms and opinion-driven phrases like "dmkfails" or "pmmodi" can indicate negative or neutral sentiment, while other phrases may express support or criticism. Advanced contextual embeddings like mBERT and phrase-level sentiment detection are key to refining the model's accuracy, allowing it to better capture the complexities of Tamil-English sentiment and political discourse. These preprocessing and feature extraction methods enhance the model's ability to differentiate sentiments with higher precision.
+
+
+\subsection{Models and Methodology}
+
+For sentiment analysis of Tamil-English code-mixed data, both traditional machine learning models (Logistic Regression, Random Forest, XGBoost) and deep learning approaches (Hierarchical Attention Networks, BERT, and mBERT) were explored. Machine learning models used features like TF-IDF and n-grams, optimized with hyperparameter tuning for effective classification. Deep learning models, particularly transformers, were employed to capture complex linguistic structures in the bilingual context, with mBERT fine-tuned for Tamil-English political sentiment. Evaluation metrics such as accuracy, precision, recall, and macro-averaged F1-score were used, with the latter ensuring balanced assessment due to class imbalance. The combination of these models enabled effective sentiment classification in Tamil-English social media data, especially in political discourse.
+
+
+\section{Results and Discussion}
+
+The study on sentiment analysis of Tamil-English code-mixed data revealed that deep learning models, particularly transformer-based architectures like mBERT, outperformed traditional machine learning models such as Logistic Regression, Random Forest, and XGBoost. While the traditional models provided solid baseline results, they struggled with the complex linguistic nuances inherent in code-mixed content. Transformer models excelled due to their ability to capture contextual relationships between the two languages, enabling better handling of code-switching, slang, and sentiment shifts. This performance boost highlights the effectiveness of transformers in multilingual settings, especially when dealing with Tamil-English sentiment.
+
+The models were evaluated using metrics like accuracy, precision, recall, and F1-score, with macro-averaged F1-score prioritized due to class imbalance. The results demonstrated that mBERT achieved the highest accuracy and F1-score, successfully identifying nuanced sentiments such as sarcasm, implicit opinions, and sentiment shifts in mixed-language content. Traditional models, while effective at identifying straightforward sentiments like positive or negative, showed limitations in understanding more complex expressions typical in Tamil-English social media discourse.
+
+These findings emphasize the power of pre-trained transformer models for sentiment analysis in bilingual social media data. The ability of mBERT to handle the intricacies of Tamil-English code-mixed content marks it as a strong choice for sentiment analysis in multilingual settings. Further improvements could be achieved by fine-tuning these models on larger, domain-specific datasets to better capture context, slang, and sentiment expressions unique to Tamil-English code-mixed discourse.
+
+
+\subsection{Model Performance}
+The performance of the models for sentiment analysis in Tamil-English code-mixed data was evaluated using precision, recall, F1-score, and accuracy metrics. Among the models tested, mBERT achieved the highest accuracy of 80, with a precision of 78\%, recall of 75\%, and an F1-score of 76\%. This demonstrates that mBERT outperformed other models, excelling in capturing complex sentiment nuances in code-mixed content. Its ability to understand contextual shifts in both Tamil and English made it a reliable choice for the sentiment classification task, providing a good balance between precision and recall.
+
+The Logistic Regression (LR) model showed solid performance with an accuracy of 72\%, precision of 70\%, recall of 68\%, and F1-score of 69\%. While not as high-performing as mBERT, LR remains a strong baseline, especially in scenarios where simpler models are preferred. Random Forest also demonstrated competitive results with an accuracy of 70\%, precision of 68\%, and recall of 66\%, suggesting its potential as a reliable model for sentiment classification in Tamil-English content.
+
+Models like XGBoost and Support Vector Machine (SVM) exhibited more moderate performance, with accuracies of 65\% and 68\%, respectively. XGBoost had a slightly lower recall of 60\%, indicating room for improvement in detecting certain sentiment classes. Overall, the performance metrics suggest that while traditional models such as LR and Random Forest are reasonable alternatives, mBERT is the most promising model for capturing the complexity of Tamil-English code-mixed sentiment, particularly for tasks requiring fine-grained sentiment analysis.
+
+
+\begin{figure}[t]
+  \includegraphics[width=1.0\linewidth]{sa.jpg}
+  \caption{Model Performance}
+  \label{fig:experiments}
+\end{figure}
+
+
+
+
+\section{Conclusion}
+This study investigated the task of sentiment analysis on Tamil-English (code-mixed) comments, comparing traditional machine learning models such as Logistic Regression, Random Forest, and XGBoost with advanced deep learning models like BERT and Hierarchical Attention Networks (HAN). The results highlighted that transformer-based models, especially BERT, significantly outperformed traditional approaches, demonstrating superior accuracy in classifying sentiments such as positive, negative, and neutral in code-mixed Tamil-English text. BERT’s ability to capture intricate contextual nuances in multilingual and code-mixed data enabled it to effectively address the challenges of sentiment analysis in Tamil-English, where the text often blends both languages in complex patterns. This study underscores the critical role of fine-tuning large pre-trained models on domain-specific data for enhanced sentiment classification. Future research will focus on expanding the dataset, incorporating hybrid models that integrate both traditional machine learning and deep learning techniques, and further improving transformer-based models for more precise sentiment analysis in Tamil-English and other multilingual contexts. This work lays the foundation for more robust sentiment analysis systems, especially in the analysis of social media discussions in code-mixed languages.
+
+\bibliography{custom}
+
+\end{document}
