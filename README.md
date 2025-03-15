@@ -63,7 +63,6 @@ pip install -r requirements.txt
 | XLM-R        | **81.5**       | 0.82        | 120              |  
 | IndicBERT    | 79.8          | 0.80        | 110              |  
 | mBERT        | 78.9          | 0.78        | 115              |  
-| **Our Model** | **85.3**       | **0.86**    | **95**           |  
 
 ### 🛠 **Computational Efficiency Analysis**  
 
@@ -72,7 +71,6 @@ pip install -r requirements.txt
 | XLM-R        | 6.2              | 950          |  
 | IndicBERT    | 5.8              | 980          |  
 | mBERT        | 6.0              | 960          |  
-| **Our Model** | **4.5**          | **1100**     |  
 
 ---
 
